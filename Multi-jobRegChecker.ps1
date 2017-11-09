@@ -37,22 +37,22 @@ foreach($name in $pcnames){
             try{
                 $Reg = [Microsoft.Win32.RegistryKey]::OpenRemoteBaseKey('LocalMachine', $name)
             }catch{
-                $errors = "Unable to connect to PC."
+                $errors += "Unable to connect to PC."
             }  
             
             try{
                 $RegKey= $Reg.OpenSubKey("$($rsk)")
             }catch{
-                $errors = "No sub key key found"
+                $errors += "No sub key key found"
             }            
 
             try{
                 $RegVal = $RegKey.GetValue("$($rgvo)")
             }catch{
-                $errors = "No registry key found"
+                $errors += "No registry key found"
             }       
         }else{
-            $errors = "$name could not be contacted to test."
+            $errors += "$name could not be contacted to test."
         }
 
         $TestObject | Add-Member -Type NoteProperty -Name ComputerName -Value $name

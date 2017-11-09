@@ -65,17 +65,17 @@ foreach($name in $pcnames){
     $counter++
 }
 
-While (@(Get-Job | Where { $_.State -eq "Running" }).Count -ne 0)
-{  Write-Host "Waiting for background jobs..."
-   Get-Job
-   Start-Sleep -Seconds 3
+While (@(Get-Job | Where { $_.State -eq "Running" }).Count -ne 0){  
+    Write-Host "Waiting for background jobs..."
+    Get-Job
+    Start-Sleep -Seconds 3
 }
  
 Get-Job
 
 $Data = ForEach ($Job in (Get-Job)) {
-   $objectsarray += Receive-Job $Job
-   Remove-Job $Job
+    $objectsarray += Receive-Job $Job
+    Remove-Job $Job
 }
 
 foreach($xobject in $objectsarray){
